@@ -1,7 +1,11 @@
 package io.github.dnloop.data;
 
-public class Cloud {
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
 
+@JsonRootName(value = "cloud")
+public class Cloud {
+    @JsonProperty("all")
     private int cloudiness;
 
     public Cloud() {

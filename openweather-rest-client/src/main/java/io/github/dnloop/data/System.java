@@ -1,22 +1,32 @@
 package io.github.dnloop.data;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
+
+@JsonRootName(value = "sys")
 public class System {
+    @JsonProperty("id")
     private int id;
 
-    private String type;
+    @JsonProperty("type")
+    private int type;
 
-    private String message;
+    @JsonProperty("message")
+    private double message;
 
+    @JsonProperty("country")
     private String country;
 
+    @JsonProperty("sunrise")
     private long sunrise;
 
+    @JsonProperty("sunset")
     private long sunset;
 
     public System() {
     }
 
-    public System(int id, String type, String message, String country, long sunrise, long sunset) {
+    public System(int id, int type, double message, String country, long sunrise, long sunset) {
 	super();
 	this.id = id;
 	this.type = type;
@@ -34,19 +44,19 @@ public class System {
 	this.id = id;
     }
 
-    public String getType() {
+    public int getType() {
 	return type;
     }
 
-    public void setType(String type) {
+    public void setType(int type) {
 	this.type = type;
     }
 
-    public String getMessage() {
+    public double getMessage() {
 	return message;
     }
 
-    public void setMessage(String message) {
+    public void setMessage(double message) {
 	this.message = message;
     }
 
@@ -86,10 +96,12 @@ public class System {
 	int result = 1;
 	result = prime * result + ((country == null) ? 0 : country.hashCode());
 	result = prime * result + id;
-	result = prime * result + ((message == null) ? 0 : message.hashCode());
+	long temp;
+	temp = Double.doubleToLongBits(message);
+	result = prime * result + (int) (temp ^ (temp >>> 32));
 	result = prime * result + (int) (sunrise ^ (sunrise >>> 32));
 	result = prime * result + (int) (sunset ^ (sunset >>> 32));
-	result = prime * result + ((type == null) ? 0 : type.hashCode());
+	result = prime * result + type;
 	return result;
     }
 
@@ -109,19 +121,13 @@ public class System {
 	    return false;
 	if (id != other.id)
 	    return false;
-	if (message == null) {
-	    if (other.message != null)
-		return false;
-	} else if (!message.equals(other.message))
+	if (Double.doubleToLongBits(message) != Double.doubleToLongBits(other.message))
 	    return false;
 	if (sunrise != other.sunrise)
 	    return false;
 	if (sunset != other.sunset)
 	    return false;
-	if (type == null) {
-	    if (other.type != null)
-		return false;
-	} else if (!type.equals(other.type))
+	if (type != other.type)
 	    return false;
 	return true;
     }

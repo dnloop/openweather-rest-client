@@ -1,24 +1,30 @@
 package io.github.dnloop.data;
 
-public class Snow {
-    private float oneHour;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
 
-    private float threeHours;
+@JsonRootName(value = "snow")
+public class Snow {
+    @JsonProperty("1h")
+    private double oneHour;
+
+    @JsonProperty("3h")
+    private double threeHours;
 
     public Snow() {
     }
 
-    public Snow(float oneHour, float threeHours) {
+    public Snow(double d, double e) {
 	super();
-	this.oneHour = oneHour;
-	this.threeHours = threeHours;
+	this.oneHour = d;
+	this.threeHours = e;
     }
 
-    public float getOneHour() {
+    public double getOneHour() {
 	return oneHour;
     }
 
-    public void setOneHour(float oneHour) {
+    public void setOneHour(double oneHour) {
 	this.oneHour = oneHour;
     }
 
@@ -31,8 +37,11 @@ public class Snow {
     public int hashCode() {
 	final int prime = 31;
 	int result = 1;
-	result = prime * result + Float.floatToIntBits(oneHour);
-	result = prime * result + Float.floatToIntBits(threeHours);
+	long temp;
+	temp = Double.doubleToLongBits(oneHour);
+	result = prime * result + (int) (temp ^ (temp >>> 32));
+	temp = Double.doubleToLongBits(threeHours);
+	result = prime * result + (int) (temp ^ (temp >>> 32));
 	return result;
     }
 
@@ -45,9 +54,9 @@ public class Snow {
 	if (getClass() != obj.getClass())
 	    return false;
 	Snow other = (Snow) obj;
-	if (Float.floatToIntBits(oneHour) != Float.floatToIntBits(other.oneHour))
+	if (Double.doubleToLongBits(oneHour) != Double.doubleToLongBits(other.oneHour))
 	    return false;
-	if (Float.floatToIntBits(threeHours) != Float.floatToIntBits(other.threeHours))
+	if (Double.doubleToLongBits(threeHours) != Double.doubleToLongBits(other.threeHours))
 	    return false;
 	return true;
     }

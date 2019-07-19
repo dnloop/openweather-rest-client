@@ -1,35 +1,70 @@
 package io.github.dnloop.data;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class WeatherData {
+    @JsonProperty("id")
     private int id;
 
+    @JsonProperty("base")
     private String base;
 
+    @JsonProperty("dt")
     private long dataTime;
 
+    @JsonProperty("timezone")
     private int timezone;
 
+    @JsonProperty("name")
     private String name;
 
+    @JsonProperty("cod")
     private int code;
 
+    @JsonProperty("main")
     private MainData mainData;
 
+    @JsonProperty("cloud")
     private Cloud cloud;
 
+    @JsonProperty("rain")
     private Rain rain;
 
+    @JsonProperty("coord")
     private Coordinate coordinate;
 
+    @JsonProperty("wind")
     private Wind wind;
 
+    @JsonProperty("sys")
     private System system;
 
+    @JsonProperty("snow")
     private Snow snow;
 
+    @JsonProperty("weather")
     private Weather weather;
 
     public WeatherData() {
+    }
+
+    public WeatherData(int id, String base, long dataTime, int timezone, String name, int code, MainData mainData,
+	    Cloud cloud, Rain rain, Coordinate coordinate, Wind wind, System system, Snow snow, Weather weather) {
+	super();
+	this.id = id;
+	this.base = base;
+	this.dataTime = dataTime;
+	this.timezone = timezone;
+	this.name = name;
+	this.code = code;
+	this.mainData = mainData;
+	this.cloud = cloud;
+	this.rain = rain;
+	this.coordinate = coordinate;
+	this.wind = wind;
+	this.system = system;
+	this.snow = snow;
+	this.weather = weather;
     }
 
     public int getId() {

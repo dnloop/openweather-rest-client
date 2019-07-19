@@ -1,16 +1,22 @@
 package io.github.dnloop.data;
 
-public class Wind {
-    private float speed;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
 
+@JsonRootName(value = "wind")
+public class Wind {
+    @JsonProperty("speed")
+    private double speed;
+
+    @JsonProperty("deg")
     private int degrees;
 
     public Wind() {
     }
 
-    public Wind(float speed, int degrees) {
+    public Wind(double d, int degrees) {
 	super();
-	this.speed = speed;
+	this.speed = d;
 	this.degrees = degrees;
     }
 
@@ -32,7 +38,9 @@ public class Wind {
 	final int prime = 31;
 	int result = 1;
 	result = prime * result + degrees;
-	result = prime * result + Float.floatToIntBits(speed);
+	long temp;
+	temp = Double.doubleToLongBits(speed);
+	result = prime * result + (int) (temp ^ (temp >>> 32));
 	return result;
     }
 
@@ -47,7 +55,7 @@ public class Wind {
 	Wind other = (Wind) obj;
 	if (degrees != other.degrees)
 	    return false;
-	if (Float.floatToIntBits(speed) != Float.floatToIntBits(other.speed))
+	if (Double.doubleToLongBits(speed) != Double.doubleToLongBits(other.speed))
 	    return false;
 	return true;
     }

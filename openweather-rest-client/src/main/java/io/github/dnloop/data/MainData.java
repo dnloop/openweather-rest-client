@@ -1,37 +1,63 @@
 package io.github.dnloop.data;
 
-public class MainData {
-    private Unit temperature;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
 
+@JsonRootName(value = "main")
+public class MainData {
+
+    private Unit unit;
+
+    @JsonProperty("temp")
+    private double temperature;
+
+    @JsonProperty("pressure")
     private int pressure;
 
+    @JsonProperty("humidity")
     private int humidity;
 
+    @JsonProperty("temp_min")
     private double tempMin;
 
+    @JsonProperty("temp_max")
     private double tempMax;
 
+    @JsonProperty("sea_level")
     private int seaLevel;
 
+    @JsonProperty("grnd_level")
     private int groundLevel;
 
     public MainData() {
     }
 
-    public MainData(Unit temperature, int pressure, int humidity, int seaLevel, int groundLevel) {
+    public MainData(Unit unit, double temperature, int pressure, int humidity, double tempMin, double tempMax,
+	    int seaLevel, int groundLevel) {
 	super();
+	this.unit = unit;
 	this.temperature = temperature;
 	this.pressure = pressure;
 	this.humidity = humidity;
+	this.tempMin = tempMin;
+	this.tempMax = tempMax;
 	this.seaLevel = seaLevel;
 	this.groundLevel = groundLevel;
     }
 
-    public Unit getTemperature() {
+    public Unit getUnit() {
+	return unit;
+    }
+
+    public void setUnit(Unit unit) {
+	this.unit = unit;
+    }
+
+    public double getTemperature() {
 	return temperature;
     }
 
-    public void setTemperature(Unit temperature) {
+    public void setTemperature(double temperature) {
 	this.temperature = temperature;
     }
 
@@ -85,9 +111,9 @@ public class MainData {
 
     @Override
     public String toString() {
-	return "MainData [temperature=" + temperature + ", pressure=" + pressure + ", humidity=" + humidity
-		+ ", tempMin=" + tempMin + ", tempMax=" + tempMax + ", seaLevel=" + seaLevel + ", groundLevel="
-		+ groundLevel + "]";
+	return "MainData [unit=" + unit + ", temperature=" + temperature + ", pressure=" + pressure + ", humidity="
+		+ humidity + ", tempMin=" + tempMin + ", tempMax=" + tempMax + ", seaLevel=" + seaLevel
+		+ ", groundLevel=" + groundLevel + "]";
     }
 
     @Override
@@ -103,7 +129,9 @@ public class MainData {
 	result = prime * result + (int) (temp ^ (temp >>> 32));
 	temp = Double.doubleToLongBits(tempMin);
 	result = prime * result + (int) (temp ^ (temp >>> 32));
-	result = prime * result + ((temperature == null) ? 0 : temperature.hashCode());
+	temp = Double.doubleToLongBits(temperature);
+	result = prime * result + (int) (temp ^ (temp >>> 32));
+	result = prime * result + ((unit == null) ? 0 : unit.hashCode());
 	return result;
     }
 
@@ -128,7 +156,9 @@ public class MainData {
 	    return false;
 	if (Double.doubleToLongBits(tempMin) != Double.doubleToLongBits(other.tempMin))
 	    return false;
-	if (temperature != other.temperature)
+	if (Double.doubleToLongBits(temperature) != Double.doubleToLongBits(other.temperature))
+	    return false;
+	if (unit != other.unit)
 	    return false;
 	return true;
     }
