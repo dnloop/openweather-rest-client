@@ -1,7 +1,11 @@
 package io.github.dnloop.data;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class WeatherData {
     @JsonProperty("id")
     private int id;
@@ -43,13 +47,13 @@ public class WeatherData {
     private Snow snow;
 
     @JsonProperty("weather")
-    private Weather weather;
+    private List<Weather> weather;
 
     public WeatherData() {
     }
 
     public WeatherData(int id, String base, long dataTime, int timezone, String name, int code, MainData mainData,
-	    Cloud cloud, Rain rain, Coordinate coordinate, Wind wind, System system, Snow snow, Weather weather) {
+	    Cloud cloud, Rain rain, Coordinate coordinate, Wind wind, System system, Snow snow, List<Weather> weather) {
 	super();
 	this.id = id;
 	this.base = base;
@@ -171,11 +175,11 @@ public class WeatherData {
 	this.snow = snow;
     }
 
-    public Weather getWeather() {
+    public List<Weather> getWeather() {
 	return weather;
     }
 
-    public void setWeather(Weather weather) {
+    public void setWeather(List<Weather> weather) {
 	this.weather = weather;
     }
 
