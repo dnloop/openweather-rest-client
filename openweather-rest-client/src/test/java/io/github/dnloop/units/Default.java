@@ -2,6 +2,9 @@ package io.github.dnloop.units;
 
 import static org.junit.Assert.assertThat;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hamcrest.core.IsNull;
@@ -37,7 +40,7 @@ public class Default extends Tester {
 
     private Wind wind;
 
-    private Weather weather;
+    private List<Weather> weather;
 
     private MainData main;
 
@@ -45,14 +48,15 @@ public class Default extends Tester {
 
     public Default() {
 	super();
-	getMapper().enable(SerializationFeature.WRAP_ROOT_VALUE, SerializationFeature.INDENT_OUTPUT);
+	getMapper().enable(SerializationFeature.INDENT_OUTPUT);
+	weather = new ArrayList<>();
 	cloud = new Cloud(25);
 	coord = new Coordinate(37.39, -122.08);
 	rain = new Rain(0.0, 0.0);
 	snow = new Snow(0.0, 5.0);
 	sys = new System(5122, 1, 0.0139, "US", 1560343627, 1560396563);
 	wind = new Wind(1.5, 350);
-	weather = new Weather(800, "Clear", "clear sky", "01d");
+	weather.add(new Weather(800, "Clear", "clear sky", "01d"));
 	main = new MainData(Unit.FARENHEIT, 296.71, 1013, 53, 294.82, 298.71, 1013, 1013);
 	complete = new WeatherData(420006353, "stations", 1560350645, -25200, "Mountain View", 200, main, cloud, rain,
 		coord, wind, sys, snow, weather);
@@ -60,6 +64,7 @@ public class Default extends Tester {
 
     public boolean runTest() {
 	String result = new String();
+
 	try {
 	    result = getMapper().writeValueAsString(complete);
 	    assertThat(result, IsNull.notNullValue());
