@@ -14,6 +14,11 @@ public class Rain {
     public Rain() {
     }
 
+    public Rain(double threeHours) {
+	super();
+	this.threeHours = threeHours;
+    }
+
     public Rain(double d, double e) {
 	super();
 	this.oneHour = d;
@@ -26,6 +31,14 @@ public class Rain {
 
     public void setOneHour(double oneHour) {
 	this.oneHour = oneHour;
+    }
+
+    public double getThreeHours() {
+	return threeHours;
+    }
+
+    public void setThreeHours(double threeHours) {
+	this.threeHours = threeHours;
     }
 
     @Override

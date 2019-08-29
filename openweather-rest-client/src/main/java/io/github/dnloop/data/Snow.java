@@ -20,6 +20,19 @@ public class Snow {
 	this.threeHours = e;
     }
 
+    public Snow(double threeHours) {
+	super();
+	this.threeHours = threeHours;
+    }
+
+    public double getThreeHours() {
+	return threeHours;
+    }
+
+    public void setThreeHours(double threeHours) {
+	this.threeHours = threeHours;
+    }
+
     public double getOneHour() {
 	return oneHour;
     }
