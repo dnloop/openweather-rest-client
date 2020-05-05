@@ -19,6 +19,9 @@ public class Setting {
 
     private static Preferences settings;
 
+    /**
+     * Client default values to be used by the openweathermap API.
+     */
     public static void initDefault() {
 	settings = Preferences.userNodeForPackage(Settings.class);
 	settings.get(URL, defaultUrl);
